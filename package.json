@@ -1,0 +1,18 @@
+{
+  "name": "ember-app-kit-new",
+  "version": "0.0.0",
+  "description": "Lightweight module designed to make initial setup of Ember App Kit easy!",
+  "main": "index.js",
+  "scripts": {
+    "test": "node test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:rondale-sc/ember-app-kit-new.git"
+  },
+  "author": "Jonathan Jackson, Micah Woods",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/rondale-sc/ember-app-kit-new/issues"
+  }
+}
