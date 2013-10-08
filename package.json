@@ -4,7 +4,7 @@
   "description": "Lightweight module designed to make initial setup of Ember App Kit easy!",
   "main": "index.js",
   "scripts": {
-    "test": "node test.js"
+    "test": "jasmine-node spec/"
   },
   "repository": {
     "type": "git",
@@ -14,5 +14,8 @@
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/rondale-sc/ember-app-kit-new/issues"
+  },
+  "devDependencies": {
+    "jasmine-node": "~1.11.0"
   }
 }
