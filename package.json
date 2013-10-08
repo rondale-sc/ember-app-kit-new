@@ -15,6 +15,9 @@
   "bugs": {
     "url": "https://github.com/rondale-sc/ember-app-kit-new/issues"
   },
+  "dependencies": {
+    "q": "~0.9.7"
+  },
   "devDependencies": {
     "jasmine-node": "~1.11.0"
   }
