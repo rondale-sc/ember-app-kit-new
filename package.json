@@ -4,7 +4,7 @@
   "description": "Lightweight module designed to make initial setup of Ember App Kit easy!",
   "main": "index.js",
   "scripts": {
-    "test": "jasmine-node spec/"
+    "test": "tape spec/*.js"
   },
   "repository": {
     "type": "git",
