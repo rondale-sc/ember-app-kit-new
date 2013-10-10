@@ -3,22 +3,7 @@ var tape           = require('tape');
 var fs             = require('fs-extra');
 var path           = require('path');
 var exec           = require('child_process').exec;
-var readline       = require('readline');
-
-function hook_stdout(callback) {
-  var old_write = process.stdout.write
-
-  process.stdout.write = (function(write) {
-    return function(string, encoding, fd) {
-      write.apply(process.stdout, arguments)
-      callback(string, encoding, fd)
-    }
-  })(process.stdout.write)
-
-  return function() {
-    process.stdout.write = old_write
-  }
-}
+var Readable       = require('stream').Readable;
 
 (function(){
   var appName = "/tmp/test_ember_appkit";
@@ -69,22 +54,25 @@ function hook_stdout(callback) {
   tape('installGruntCli', function(t){
     t.plan(3);
 
-    var kit = new EmberAppKitNew(appName);
+    var stdin = new Readable();
+    stdin._read = function() {};
+    var stdout = {
+      write: function(data) {
+        t.equal(data, "Do you want to install grunt-cli globally? (y/n)\n");
+        stdin.emit('data', "y\n");
+      }
+    };
+    var kit = new EmberAppKitNew(appName, { stdin: stdin, stdout: stdout });
+
     kit.runNpmCommand = function(){
       t.ok(true, "npm command ran");
     };
 
-    var unhook = hook_stdout(function(data) {
-      unhook();
-      t.equal(data, "Do you want to install grunt-cli globally? (y/n)\n");
-      process.stdin.emit('data', "y\n");
-    });
-
-    kit.on('grunt installing', function(){
+    kit.once('grunt installing', function(){
       t.ok(true);
     });
 
     kit.installGruntCli();
   });
 
-}).call(this);
+})();

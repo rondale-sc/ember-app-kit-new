@@ -1,11 +1,13 @@
 var exec = require('child_process').exec,
     path = require('path'),
     fs   = require('fs-extra'),
-    util = require('util'),
-    readline = require('readline');
+    util = require('util');
 
-function EmberAppKitNew(appName) {
+function EmberAppKitNew(appName, options) {
+  options = options || {};
   this.appName = appName;
+  this.stdin = options['stdin'] || process.stdin;
+  this.stdout = options['stdout'] || process.stdout;
 }
 
 util.inherits(EmberAppKitNew, (require('events')).EventEmitter);
@@ -30,15 +32,18 @@ EmberAppKitNew.prototype.cleanRepo = function(){
 }
 
 EmberAppKitNew.prototype.installGruntCli = function(){
-  process.stdin.once('data', function(answer) {
+  var input = function(answer) {
     if(answer.trim()==="y") {
       var command = 'grunt'
       this.emit(command + " installing");
       this.runNpmCommand();
+      process.stdin.pause();
     }
-  }.bind(this));
+  }.bind(this)
 
-  process.stdout.write("Do you want to install grunt-cli globally? (y/n)\n");
+  this.stdin.once('data', input);
+  this.stdout.write("Do you want to install grunt-cli globally? (y/n)\n");
+  this.stdin.resume();
 }
 
 EmberAppKitNew.prototype.runNpmCommand = function(commandString, global){
