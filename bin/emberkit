@@ -1,0 +1,12 @@
+#!/usr/bin/env node
+
+var EmberAppKitNew = require('../index.js');
+
+var appname = process.argv[2];
+
+var kit = new EmberAppKitNew(appname);
+
+kit.cloneRepo();
+
+
+
