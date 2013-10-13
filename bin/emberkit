@@ -1,12 +1,33 @@
 #!/usr/bin/env node
 
 var EmberAppKitNew = require('../index.js');
+var fs             = require('fs');
+var path           = require('path');
+var appName        = process.argv[2];
+var kit            = new EmberAppKitNew(appName);
 
-var appname = process.argv[2];
+kit.on('repoCloned', function(){
+  fs.exists(path.join(appName, '.git'), function(exists) {
+    if (exists) {
+      kit.cleanRepo();
+    }
+  });
+});
 
-var kit = new EmberAppKitNew(appname);
+kit.on('repoCleaned', function(){
+  kit.installGruntCli();
+});
+
+kit.on('grunt installed', function() {
+  kit.npmInstall();
+});
+
+kit.on('npm installed', function(){
+  kit.installBower();
+});
+
+kit.on('bower installed', function(){
+  kit.runBower();
+});
 
 kit.cloneRepo();
-
-
-
