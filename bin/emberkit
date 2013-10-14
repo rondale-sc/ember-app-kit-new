@@ -6,7 +6,7 @@ var path           = require('path');
 var appName        = process.argv[2];
 var kit            = new EmberAppKitNew(appName);
 
-kit.on('repoCloned', function(){
+kit.on('repo-cloned', function(){
   fs.exists(path.join(appName, '.git'), function(exists) {
     if (exists) {
       kit.cleanRepo();
@@ -14,19 +14,19 @@ kit.on('repoCloned', function(){
   });
 });
 
-kit.on('repoCleaned', function(){
+kit.on('repo-cleaned', function(){
   kit.installGruntCli();
 });
 
-kit.on('grunt installed', function() {
+kit.on('grunt-cli-installed', function() {
   kit.npmInstall();
 });
 
-kit.on('npm installed', function(){
+kit.on('npm-installed', function(){
   kit.installBower();
 });
 
-kit.on('bower installed', function(){
+kit.on('bower-installed', function(){
   kit.runBower();
 });
 

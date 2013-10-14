@@ -10,10 +10,13 @@
     "type": "git",
     "url": "git@github.com:rondale-sc/ember-app-kit-new.git"
   },
-  "author": "Jonathan Jackson, Micah Woods",
+  "author": "Jonathan Jackson, Micah Woods, Brandon Farmer",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/rondale-sc/ember-app-kit-new/issues"
+  },
+  "bin" : {
+    "emberkit" : "./bin/emberkit"
   },
   "dependencies": {
     "q": "~0.9.7",
