@@ -35,6 +35,7 @@ EmberAppKitNew.prototype.cleanRepo = function(){
 EmberAppKitNew.prototype.installGruntCli = function(){
   var input = function(answer) {
     if(answer.toString().trim()==="y") {
+      this.emit("grunt installing");
       this.runNpmCommand("grunt-cli", true, "grunt-cli-installed");
       process.stdin.pause();
     }

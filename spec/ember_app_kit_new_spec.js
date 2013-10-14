@@ -20,7 +20,7 @@ var Readable       = require('stream').Readable;
 
     kit.cloneRepo();
 
-    kit.on('repoCloned', function() {
+    kit.on('repo-cloned', function() {
       fs.exists(appName, function(exists) {
         t.ok(exists, "EAKit directory exists");
       })
@@ -33,14 +33,14 @@ var Readable       = require('stream').Readable;
     t.plan(2);
     var kit = new EmberAppKitNew(appName);
 
-    kit.on('repoCloned', function() {
+    kit.on('repo-cloned', function() {
       fs.exists(path.join(appName, '.git'), function(exists) {
         t.ok(exists, '.git directory exists.');
         kit.cleanRepo();
       });
     });
 
-    kit.on('repoCleaned', function() {
+    kit.on('repo-cleaned', function() {
       fs.exists(path.join(appName, '.git'), function(exists) {
         t.notOk(exists, '.git sub-directory was removed!');
       });
@@ -95,41 +95,4 @@ var Readable       = require('stream').Readable;
       process.chdir = oldChdir;
     });
   });
-
-  tape('installBower', function(t){
-    t.plan(3);
-
-    var stdin = new Readable();
-    stdin._read = function() {};
-
-    var stdout = {
-      write: function(data) {
-        t.equal(data, "Do you want to install bower globally? (y/n)\n");
-        stdin.emit('data', "y\n");
-      }
-    };
-    var kit = new EmberAppKitNew(appName, { stdin: stdin, stdout: stdout });
-
-    kit.runNpmCommand = function(){
-      t.ok(true, "npm command ran");
-    };
-
-    kit.once('bower installing', function(){
-      t.ok(true);
-    });
-
-    kit.installBower();
-  });
-
-  tape('runBower', function(t){
-    t.plan(1);
-
-    var kit = new EmberAppKitNew(appName)
-
-    kit.runBowerCommand = function(){
-      t.ok(true, 'bower command ran')
-    };
-
-    kit.runBower();
-  })
 })();
