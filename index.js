@@ -37,9 +37,12 @@ EmberAppKitNew.prototype.installGruntCli = function(){
     if(answer.toString().trim()==="y") {
       this.emit("grunt installing");
       this.runNpmCommand("grunt-cli", true, "grunt-cli-installed");
-      process.stdin.pause();
-    }
+    } else {
+      this.emit("grunt-cli-skipped");
+    };
   }.bind(this)
+
+  process.stdin.pause();
 
   this.stdin.once('data', input);
   this.stdout.write("Do you want to install grunt-cli globally? (y/n)\n");

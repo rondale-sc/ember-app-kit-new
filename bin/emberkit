@@ -22,4 +22,9 @@ kit.on('grunt-cli-installed', function() {
   kit.npmInstall();
 });
 
+kit.on('grunt-cli-skipped', function(){
+  console.log("Skipping grunt-cli global install");
+  kit.npmInstall();
+});
+
 kit.cloneRepo();
