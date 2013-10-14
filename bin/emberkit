@@ -22,12 +22,4 @@ kit.on('grunt-cli-installed', function() {
   kit.npmInstall();
 });
 
-kit.on('npm-installed', function(){
-  kit.installBower();
-});
-
-kit.on('bower-installed', function(){
-  kit.runBower();
-});
-
 kit.cloneRepo();

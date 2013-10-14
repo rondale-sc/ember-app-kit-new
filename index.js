@@ -45,27 +45,10 @@ EmberAppKitNew.prototype.installGruntCli = function(){
   this.stdin.resume();
 }
 
-EmberAppKitNew.prototype.installBower = function(){
-  var input = function(answer) {
-    if(answer.toString().trim()==="y") {
-      this.runNpmCommand("bower", true);
-      process.stdin.pause();
-    }
-  }.bind(this)
-
-  this.stdin.once('data', input);
-  this.stdout.write("Do you want to install bower globally? (y/n)\n");
-  this.stdin.resume();
-}
-
 EmberAppKitNew.prototype.npmInstall = function(){
   process.chdir(this.appName);
   this.runNpmCommand("",false,"npm-installed");
 }
-
-EmberAppKitNew.prototype.runBower = function(){
-  this.runBowerCommand("install");
-};
 
 EmberAppKitNew.prototype.runNpmCommand = function(commandString, global, eventMsg){
   var commandToBeRun = "npm";
@@ -77,13 +60,6 @@ EmberAppKitNew.prototype.runNpmCommand = function(commandString, global, eventMs
   var eventMsg = eventMsg || commandString + "-installed";
 
   this.runSysCommand(commandToBeRun,args,eventMsg);
-};
-
-EmberAppKitNew.prototype.runBowerCommand = function() {
-  var commandToBeRun = "bower"
-  var eventMsg = "ran bower install"
-
-  this.runSysCommand(commandToBeRun, Array.prototype.slice.call(arguments, 0), eventMsg);
 };
 
 EmberAppKitNew.prototype.runSysCommand = function(commandToBeRun,args,eventMsg) {
