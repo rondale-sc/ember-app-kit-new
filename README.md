@@ -22,3 +22,9 @@ These steps are taken from EAK's [Getting Started](http://iamstef.net/ember-app-
 * clears the newly cloned repo of its `.git` dir (so that EAK's history isn't kept)
 * asks to install grunt-cli globally
 * runs `npm install`
+
+### Contributors
+
+* @rondale-sc
+* @bthesorceror
+* @mwoods79
